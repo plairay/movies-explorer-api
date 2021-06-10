@@ -93,8 +93,4 @@ const deleteMovie = (req, res, next) => {
     .catch(next);
 };
 
-module.exports = {
-  getMovies,
-  createMovie,
-  deleteMovie,
-};
+module.exports = { getMovies, createMovie, deleteMovie };

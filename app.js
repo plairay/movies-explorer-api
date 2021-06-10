@@ -21,7 +21,8 @@ mongoose.connect(NODE_ENV === 'production' ? DB_URL : 'mongodb://localhost:27017
 });
 
 app.use(cors({
-  origin: 'https://movies.kamenskiyyyy.nomoredomains.club',
+  origin: true,
+  exposedHeaders: '*',
   credentials: true,
 }));
 
