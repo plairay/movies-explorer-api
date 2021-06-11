@@ -71,11 +71,11 @@ const deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .select('+owner')
     .orFail(() => {
-      throw new NotFoundError('Фильм не найден');
+      throw new NotFoundError('Такого фильма не существует');
     })
     .then((movie) => {
       if (movie.owner.toString() !== userId) {
-        throw new ForbiddenError('Недостаточно прав');
+        throw new ForbiddenError('Не достаточно прав');
       }
       return Movie.findByIdAndDelete(req.params.movieId)
         .select('-owner')
@@ -93,4 +93,8 @@ const deleteMovie = (req, res, next) => {
     .catch(next);
 };
 
-module.exports = { getMovies, createMovie, deleteMovie };
+module.exports = {
+  getMovies,
+  createMovie,
+  deleteMovie,
+};

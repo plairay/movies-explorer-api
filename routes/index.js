@@ -10,8 +10,10 @@ router.post('/signin', validateSignIn, login);
 router.post('/signup', validateSignUp, createUser);
 
 router.use(auth);
+
 router.use('/users', usersRouter);
 router.use('/movies', moviesRouter);
+
 router.all('*', () => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');
 });

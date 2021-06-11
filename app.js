@@ -9,7 +9,11 @@ const errorsHandler = require('./middlewares/errorsHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 dotenv.config();
-const { NODE_ENV, PORT = 3000, DB_URL } = process.env;
+const {
+  NODE_ENV,
+  PORT = 3000,
+  DB_URL,
+} = process.env;
 
 const app = express();
 

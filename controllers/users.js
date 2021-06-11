@@ -12,7 +12,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getMyUser = (req, res, next) => {
   User.findById(req.user._id)
-    .orFail(new NotFoundError('Пользователя с таким id не существует'))
+    .orFail(new NotFoundError('Не существует пользователя с таким id'))
     .then((user) => res.status(200)
       .send(user))
     .catch((err) => {
@@ -40,7 +40,7 @@ const updateProfile = (req, res, next) => {
     new: true,
     runValidators: true,
   })
-    .orFail(new NotFoundError('Пользователя с таким id не существует'))
+    .orFail(new NotFoundError('Не существует пользователя с таким id'))
     .then((data) => res.status(200)
       .send(data))
     .catch((err) => {
@@ -62,7 +62,7 @@ const createUser = (req, res, next) => {
     password,
   } = req.body;
   if (!email || !name || !password) {
-    throw new ValidationError('Неправильная почта или пароль');
+    throw new ValidationError('Почта или пароль неверные');
   }
   bcrypt.hash(password, 10)
     .then((hash) => {
