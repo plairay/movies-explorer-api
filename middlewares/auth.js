@@ -5,6 +5,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const { SECRET_CODE } = require('../utils/constants');
 
 module.exports = async (req, res, next) => {
+  console.log(req)
   try {
     const token = req.cookies.jwt;
     const payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : SECRET_CODE);
