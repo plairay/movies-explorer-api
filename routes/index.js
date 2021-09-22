@@ -1,36 +1,21 @@
-const Router = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
+const router = require('express').Router();
+const usersRouter = require('./users');
+const moviesRouter = require('./movies');
+const NotFoundError = require('../errors/404-error');
+const auth = require('../middlewares/auth');
+const { login, createUser } = require('../controllers/users');
+const { validateSignUp, validateSignIn } = require('../middlewares/validation');
 
-const {
-  signUp,
-  signIn,
-  signOut,
-} = require('../controllers/users');
-const UserRouter = require('./users');
-const MovieRouter = require('./movies');
-const authMiddleware = require('../middlewares/auth');
-const NotFoundErr = require('../errors/not-found-err');
-const { MES_NOT_FOUND_PAGE } = require('../utils/constants');
+router.post('/signin', validateSignIn, login);
+router.post('/signup', validateSignUp, createUser);
 
-Router.post('/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
-    name: Joi.string().required().min(2).max(30),
-  }),
-}), signUp);
-Router.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
-  }),
-}), signIn);
-Router.post('/signout', authMiddleware, signOut);
-Router.use('/users/', authMiddleware, UserRouter);
-Router.use('/movies/', authMiddleware, MovieRouter);
+router.use(auth);
 
-Router.use(authMiddleware, (req, res, next) => {
-  next(new NotFoundErr(MES_NOT_FOUND_PAGE));
+router.use('/users', usersRouter);
+router.use('/movies', moviesRouter);
+
+router.all('*', () => {
+  throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
 
-module.exports = Router;
+module.exports = router;
