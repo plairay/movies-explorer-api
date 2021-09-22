@@ -19,8 +19,8 @@ const MES_TOKEN_DEL = 'Токен удален';
 const SECRET_CODE = '$2b$12$CmlwbfGcHhRkZZQGC5ymEerYSgHdPgIL4Chvg.GMdw8G3V1DeGFfq';
 
 const ALLOWED_CORS = [
-  'https://movies.khan.nomoredomains.monster',
-  'http://movies.khan.nomoredomains.monster',
+  'https://api.plairay.movies.nomoredomains.club/users',
+  'http://api.plairay.movies.nomoredomains.club',
   'http://localhost:3000',
 ];
 
