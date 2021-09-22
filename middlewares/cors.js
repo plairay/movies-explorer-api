@@ -2,10 +2,11 @@ const { ALLOWED_CORS, DEFAULT_ALLOWED_METHODS } = require('../utils/constants');
 
 module.exports = (req, res, next) => {
   console.log(res);
-  console.log(req);
+  console.log(req.headers);
   const { origin } = req.headers;
   const { method } = req;
   const requestHeaders = req.headers['access-control-request-headers'];
+  console.log(origin);
 
   if (ALLOWED_CORS.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
