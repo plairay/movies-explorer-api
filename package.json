@@ -8,7 +8,7 @@
     "lint": "npx eslint .",
     "fix": "npx eslint . --fix"
   },
-  "author": "Khan Tagiev",
+  "author": "kostya",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "celebrate": "^15.0.0",
