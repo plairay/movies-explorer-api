@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
@@ -14,6 +15,12 @@ const indexRouter = require('./routes/index');
 
 const app = express();
 const { PORT = 3000 } = process.env;
+
+app.use(cors({
+  origin: true,
+  exposedHeaders: '*',
+  credentials: true,
+}));
 
 async function appStart() {
   try {
